@@ -397,10 +397,11 @@ print("avg : %.2f" % (sum/len(h_list)))
 
 # 5명의 키를 입력받아 입력받은 키의 총합과 평균을 구하는 프로그램을 작성해 봅시다.
 sum = 0
-h_list=[]
+
 for _ in range(5):
     h = int(input("입력 : "))
     sum += h
+    
 
 print(sum)
-print(sum/len(h_list))
+print(sum/5)
