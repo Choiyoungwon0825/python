@@ -1,0 +1,3 @@
+Name : 폴
+Age : 1234
+School : 하이스쿨
