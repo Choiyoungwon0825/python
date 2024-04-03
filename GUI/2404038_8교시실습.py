@@ -24,9 +24,8 @@ class App(QMainWindow):
         grid = QGridLayout()
         widget.setLayout(grid)
 
-
         grid.addWidget(QLabel('아무 내용이나 입력하세요'))
-        grid.addWidget(QLineEdit)
+        grid.addWidget(QLineEdit())
         btn = QPushButton('입력 확인')
         btn.clicked.connect(self.buttonClick)
         grid.addWidget(btn)
@@ -40,13 +39,11 @@ class App(QMainWindow):
 
 
     def buttonClick(self):
-        
-    
-        reply = QMessageBox.question(self, 'Message', text,
+        text, reply = QMessageBox.question(self, 'Message', '',
                                     QMessageBox.Close)
 
-        if reply == QMessageBox.Close:
-            quit()
+        # if reply == QMessageBox.Close:
+        #     quit()
 
 
 
