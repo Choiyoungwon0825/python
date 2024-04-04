@@ -1,0 +1,90 @@
+'''
+만족시켜야할 최소한의 조건
+
+- 이름, 나이, 지역을 각각 입력받는 
+  입력 요소를(LineEdit)를 하나씩 포함하자!
+
+- 입력 요소들과 함께 버튼 하나(PushButton)도 함께 있어야 한다.
+
+- 실행 흐름은 다음과 같다.
+1. 입력 요소에 이름, 나이, 지역을 각각 입력한다.
+2. 버튼을 클릭한다.
+3. 그러면 이름, 나이, 지역이 쓰여 있는 메시지박스가 나타난다.
+(QMessageBox)
+
+'''
+
+from PyQt5.QtCore import QTimerEvent
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+import sys
+import os
+
+
+class App(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initialize()  # 이 메소드 안에서 설정을 진행
+
+    def initialize(self):
+        widget = QWidget()
+        grid = QGridLayout()
+        widget.setLayout(grid)
+        datetime = QDateTime.currentDateTime()
+
+        timeLabel = QLabel(datetime.toString('yyyy년 MM월 dd일 hh:mm:ss'), self)
+        label = QLabel('프로그램을 연 시각 :')
+        label1 = QLabel('이름 : ')
+        label2 = QLabel('나이 : ')
+        label3 = QLabel('사는지역 : ')
+
+        self.lineEdit1 = QLineEdit()
+        self.lineEdit2 = QLineEdit()
+        self.lineEdit3 = QLineEdit()
+
+        grid.addWidget(label, 0, 0)
+        grid.addWidget(timeLabel, 0, 1)
+        grid.addWidget(label1, 1, 0)
+        grid.addWidget(label2, 2, 0)
+        grid.addWidget(label3, 3, 0)
+
+        grid.addWidget(self.lineEdit1, 1, 1)
+        grid.addWidget(self.lineEdit2, 2, 1)
+        grid.addWidget(self.lineEdit3, 3, 1)
+
+        btn = QPushButton('클릭하세요', self)
+        grid.addWidget(btn, 4, 1)
+        btn.clicked.connect(self.mBox)
+
+        self.setCentralWidget(widget)
+
+        self.setWindowTitle('오전실습과제')
+        self.setWindowIcon(QIcon('penguin-icon.ico'))
+        self.move(600, 400)
+        self.resize(400, 300)
+
+        self.show()
+
+    def mBox(self):
+        text1 = self.lineEdit1.text()
+        text2 = self.lineEdit2.text()
+        text3 = self.lineEdit3.text()
+
+        msg = QMessageBox.question(self, "정보창",
+                                   "이름 : " + text1 + "\n"
+                                   "나이 : " + text2 + "\n"
+                                   "사는 지역 :  " + text3 + "\n",
+                                   QMessageBox.Ok | QMessageBox.Close)
+
+        if msg == QMessageBox.Close:
+            sys.exit()
+        else:
+            return
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    view = App()
+    sys.exit(app.exec_())
+

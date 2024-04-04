@@ -13,8 +13,9 @@ from PyQt5.QtGui import *
 # 메시지박스에 띄워진다.
 
 class App(QMainWindow):
+    
     def __init__(self):
-        super().__init__()
+        super().__init__()     
         self.initUI()
         
     
@@ -23,12 +24,16 @@ class App(QMainWindow):
         widget = QWidget()
         grid = QGridLayout()
         widget.setLayout(grid)
+        self.text_label = QLabel(self)
+        self.lineEdit = QLineEdit(self)
 
         grid.addWidget(QLabel('아무 내용이나 입력하세요'))
-        grid.addWidget(QLineEdit())
-        btn = QPushButton('입력 확인')
-        btn.clicked.connect(self.buttonClick)
-        grid.addWidget(btn)
+        grid.addWidget(self.lineEdit)
+        self.btn = QPushButton('입력 확인')
+        self.btn.clicked.connect(self.buttonClick)
+        grid.addWidget(self.btn)
+
+
    
         self.setCentralWidget(widget)
         self.setWindowTitle('PyQt5 Application')
@@ -37,16 +42,18 @@ class App(QMainWindow):
         self.resize(400, 300)
         self.show()
 
+      
+
 
     def buttonClick(self):
-        text, reply = QMessageBox.question(self, 'Message', '',
+        text = self.lineEdit.text()
+        reply = QMessageBox.question(self, '값 들어오는 곳 ', text,
                                     QMessageBox.Close)
+        
+        if reply == QMessageBox.close:
+            App.quit()
 
-        # if reply == QMessageBox.Close:
-        #     quit()
-
-
-
+       
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     view = App()
